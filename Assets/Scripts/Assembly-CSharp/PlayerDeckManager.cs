@@ -6,8 +6,6 @@ using Multiplayer;
 
 public class PlayerDeckManager
 {
-	public const int MAX_NUM_DECKS = 5;
-
 	public List<CardItem> Inventory = new List<CardItem>();
 
 	public List<Deck> Decks = new List<Deck>();
@@ -63,7 +61,7 @@ public class PlayerDeckManager
 
 	private void FillInEmptyDecks()
 	{
-		for (int i = Decks.Count; i < 5; i++)
+		for (int i = Decks.Count; i < Limits.MAX_DECKS; i++)
 		{
 			Deck deck = new Deck();
 			for (int j = 0; j < 4; j++)

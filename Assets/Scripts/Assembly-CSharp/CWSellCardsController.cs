@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class CWSellCardsController : MonoBehaviour
 {
-	private const int MAX_DECKS = 5;
-
 	private static CWSellCardsController g_deckController;
 
 	public CWDeckSellCards Table;

@@ -31,15 +31,15 @@ public class QuestChangeDeckScript : MonoBehaviour
 		{
 			int selectedDeck = instance.SelectedDeck;
 			int num = 0;
-			for (int i = 0; i < 5; i++)
+			for (int i = 0; i < Limits.MAX_DECKS; i++)
 			{
 				if (Increment)
 				{
-					instance.SelectedDeck = (instance.SelectedDeck + 1) % 5;
+					instance.SelectedDeck = (instance.SelectedDeck + 1) % Limits.MAX_DECKS;
 				}
 				else if (instance.SelectedDeck == 0)
 				{
-					instance.SelectedDeck = 4;
+					instance.SelectedDeck = Limits.MAX_DECKS - 1;
 				}
 				else
 				{

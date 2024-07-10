@@ -88,13 +88,13 @@ public class CWDeckBuildDeckController : MonoBehaviour
 
 	public void NextDeck()
 	{
-		currentDeck = (currentDeck + 1) % 5;
+		currentDeck = (currentDeck + 1) % Limits.MAX_DECKS;
 		UpdateUI();
 	}
 
 	public void PrevDeck()
 	{
-		currentDeck = ((currentDeck - 1 < 0) ? 4 : (currentDeck - 1));
+		currentDeck = ((currentDeck - 1 < 0) ? Limits.MAX_DECKS - 1 : (currentDeck - 1));
 		UpdateUI();
 	}
 
