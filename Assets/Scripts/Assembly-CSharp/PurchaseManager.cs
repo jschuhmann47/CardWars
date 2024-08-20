@@ -112,9 +112,9 @@ public class PurchaseManager : Singleton<PurchaseManager>
 
 	private IPurchaseListener m_Listener;
 
-	public static string CHECK_CLIENT_VERSION_URL = "http://cardwars.retroretreat.net/DomoJump/IAPReceiptVerificationServer/check_client_version.php";
+	public static string CHECK_CLIENT_VERSION_URL = string.Empty;
 
-	public static string CHECK_ASSET_DOWNLOADS_URL = "http://cardwars.retroretreat.net/DomoJump/IAPReceiptVerificationServer/check_asset_downloads.php";
+	public static string CHECK_ASSET_DOWNLOADS_URL = string.Empty;
 
 	private List<DbProductInfo> storeItems;
 
@@ -154,7 +154,7 @@ public class PurchaseManager : Singleton<PurchaseManager>
 	{
 		get
 		{
-			return "http://cardwars.retroretreat.net/AdventureTime/CardWars/IAPReceiptVerificationServer";
+			return SQSettings.SERVER_URL + "AdventureTime/CardWars/IAPReceiptVerificationServer";
 		}
 	}
 
@@ -203,6 +203,8 @@ public class PurchaseManager : Singleton<PurchaseManager>
 
 	private void Awake()
 	{
+		CHECK_CLIENT_VERSION_URL = SQSettings.SERVER_URL + "DomoJump/IAPReceiptVerificationServer/check_client_version.php";
+		CHECK_ASSET_DOWNLOADS_URL = SQSettings.SERVER_URL + "DomoJump/IAPReceiptVerificationServer/check_asset_downloads.php";
 		UnityEngine.Object.DontDestroyOnLoad(this);
 		AmazonDevice = KFFCSUtils.IsAmazonDevice();
 		m_Listener = new GooglePurchaseListener();

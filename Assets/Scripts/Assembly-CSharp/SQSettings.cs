@@ -40,14 +40,18 @@ public class SQSettings
 		}
 	}
 
+	private static Dictionary<string,object> getServerSettingsDics() {
+            string empty = string.Empty;
+            string streamingAssetsFile = TFUtils.GetStreamingAssetsFile("server_settings.json");
+            empty = ((!streamingAssetsFile.Contains("://")) ? File.ReadAllText(streamingAssetsFile) : getJsonPath(streamingAssetsFile));
+            return (Dictionary<string, object>)Json.Deserialize(empty);
+	}
+
 	public static string SERVER_URL
 	{
 		get
 		{
-            string empty = string.Empty;
-            string streamingAssetsFile = TFUtils.GetStreamingAssetsFile("server_settings.json");
-            empty = ((!streamingAssetsFile.Contains("://")) ? File.ReadAllText(streamingAssetsFile) : getJsonPath(streamingAssetsFile));
-            Dictionary<string, object> dictionary = (Dictionary<string, object>)Json.Deserialize(empty);
+			var dictionary = SQSettings.getServerSettingsDics();
             serverUrl = (string)dictionary["server_url"];
             return serverUrl;
 		}
@@ -135,16 +139,12 @@ public class SQSettings
 	public static void Init()
 	{
 		TFUtils.DebugLog("Entering SQSettings Init()");
-		bundleIdentifier = "com.turner.cardwars";
-		string empty = string.Empty;
-		string streamingAssetsFile = TFUtils.GetStreamingAssetsFile("server_settings.json");
-		empty = ((!streamingAssetsFile.Contains("://")) ? File.ReadAllText(streamingAssetsFile) : getJsonPath(streamingAssetsFile));
-		Dictionary<string, object> dictionary = (Dictionary<string, object>)Json.Deserialize(empty);
+		Dictionary<string, object> dictionary = SQSettings.getServerSettingsDics();
 		serverUrl = (string)dictionary["server_url"];
 		cdnUrl = (string)dictionary["server_url"] + "/static/";
         manifestUrl = (string)dictionary["server_url"] + "/static/manifest.json";
-        streamingAssetsFile = TFUtils.GetStreamingAssetsFile("global_settings.json");
-		empty = ((!streamingAssetsFile.Contains("://")) ? File.ReadAllText(streamingAssetsFile) : getJsonPath(streamingAssetsFile));
+        var streamingAssetsFile = TFUtils.GetStreamingAssetsFile("global_settings.json");
+		var empty = ((!streamingAssetsFile.Contains("://")) ? File.ReadAllText(streamingAssetsFile) : getJsonPath(streamingAssetsFile));
 		dictionary = (Dictionary<string, object>)Json.Deserialize(empty);
 		saveInterval = TFUtils.LoadInt(dictionary, "save_interval");
 		object value;

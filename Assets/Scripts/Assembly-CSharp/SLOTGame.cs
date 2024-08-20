@@ -20,8 +20,8 @@ public class SLOTGame : BusyIconController
 
 	public delegate bool AssetBundleLoadedCallback(string url, AssetBundle bundle);
 
-	public const string CHECK_ASSET_DOWNLOADS_URL = "http://cardwars.retroretreat.net/AdventureTime/CardWars/IAPReceiptVerificationServer/check_asset_downloads.php";
-
+	public string CHECK_ASSET_DOWNLOADS_URL = string.Empty;
+	
 	public const string ASSET_DOWNLOAD_SUBDIRECTORY = "data_1.01";
 
 	public AssetBundleType assetBundleType;
@@ -104,6 +104,7 @@ public class SLOTGame : BusyIconController
 
 	private void Awake()
 	{
+		CHECK_ASSET_DOWNLOADS_URL = SQSettings.SERVER_URL;
 		Application.targetFrameRate = 60;
 		KFFNetwork.deserializeJSONCallback = DeserializeJSON;
 		UnityEngine.Object[] array = UnityEngine.Object.FindObjectsOfType(typeof(SLOTGame));
@@ -204,7 +205,7 @@ public class SLOTGame : BusyIconController
 		checkassetdownloadscallback = callback;
 		showprogresscallback = callback2;
 		assetbundleloadedcallback = callback3;
-		string text = "http://cardwars.retroretreat.net/AdventureTime/CardWars/IAPReceiptVerificationServer/check_asset_downloads.php?lowend=" + (IsLowEndDevice() ? 1 : 0);
+		string text = SQSettings.SERVER_URL + "AdventureTime/CardWars/IAPReceiptVerificationServer/check_asset_downloads.php?lowend=" + (IsLowEndDevice() ? 1 : 0);
 		text += "&subdirectory=data_1.01";
 		text += "&platform=";
 		text += "Android";
