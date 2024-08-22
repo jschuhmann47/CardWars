@@ -26,7 +26,8 @@ public class TFWebFileServer
 
 	public TFWebFileServer(CookieContainer cookies)
 	{
-		this.cookies = cookies;
+		ServicePointManager.ServerCertificateValidationCallback += (p1, p2, p3, p4) => true;
+        this.cookies = cookies;
 	}
 
 	public void GetFile(string uri, WebHeaderCollection headers, FileCallbackHandler callback, object userData = null)
